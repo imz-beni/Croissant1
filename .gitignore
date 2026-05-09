@@ -1,0 +1,23 @@
+# Environment
+.env
+
+# Database
+data/db.sqlite3
+
+# Raw XML data (provided separately, not committed)
+data/raw/momo.xml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+env/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs (optional — keep structure but not big log files)
+data/logs/etl.log
