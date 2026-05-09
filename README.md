@@ -4,7 +4,7 @@
 
 ---
 
-## 👥 Team Members
+## Team Members
 
 | Name | Role |
 |------|------|
@@ -152,10 +152,10 @@ bash scripts/serve_frontend.sh
 | XML Parsing | Python — `xml.etree.ElementTree` / `lxml` |
 | Data Cleaning | Python — `dateutil`, `re` |
 | Database | SQLite via `sqlite3` |
-| Backend API _(optional)_ | FastAPI + Pydantic |
+| Backend API  | FastAPI + Pydantic |
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Data Visualization | Chart.js _(planned)_ |
-| Project Management | _[GitHub Projects / Trello — link below]_ |
+| Data Visualization | Chart.js  |
+| Project Management | GitHub Projects |
 
 ---
 
