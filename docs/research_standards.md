@@ -1,7 +1,7 @@
 # MoMo Data Research & Standards
-**Role:** Person 5 — Research & Standards Lead  
-**Purpose:** Feed the architecture diagram (Person 3) and task breakdown (Person 4)  
-**Status:** Draft v1.0
+
+Prepared by Nshuti Lancelot  
+Team members: Imanzi Beni, Rugwiro Derrick, Ishimwe Axcel, Teta Diana, Nshuti Lancelot
 
 ---
 
@@ -242,32 +242,5 @@ This is what the frontend reads. The ETL pipeline exports it after every run.
 ```
 
 ---
-
-## 7. What Person 3 (Architecture) Needs From This
-
-- **Data flow:** XML file → `parse_xml.py` → `clean_normalize.py` → `categorize.py` → `load_db.py` → SQLite → `export_json.sh` → `dashboard.json` → frontend
-- **Three storage layers:** raw XML (git-ignored), SQLite DB, processed JSON
-- **Dead-letter path:** invalid rows → `dead_letters` table + `logs/dead_letter/` folder
-- **Optional API layer:** FastAPI sits between SQLite and frontend for live queries
-
-## 8. What Person 4 (Scrum Board) Needs From This
-
-Suggested initial tasks (Epics + Stories):
-
-| Epic          | Task                                              | Estimate |
-|---------------|---------------------------------------------------|----------|
-| Setup         | Create GitHub repo, add collaborators, README     | 1hr      |
-| Setup         | Create Scrum board (GitHub Projects), populate    | 30min    |
-| Architecture  | Draw system diagram on Draw.io, commit to repo    | 1hr      |
-| Research      | Sample XML analysis, finalize categories & schema | 2hr ✅ done |
-| ETL           | Write `parse_xml.py` (ElementTree, extract attrs) | 3hr      |
-| ETL           | Write `clean_normalize.py` (amounts, dates, phone)| 2hr      |
-| ETL           | Write `categorize.py` (regex rules → type enum)   | 2hr      |
-| ETL           | Write `load_db.py` (CREATE TABLE + upsert logic)  | 2hr      |
-| ETL           | Wire `run.py` CLI orchestrator + logging          | 1hr      |
-| Frontend      | Build `index.html` dashboard shell                | 2hr      |
-| Frontend      | Write `chart_handler.js` (fetch + render charts)  | 3hr      |
-| Testing       | Unit tests: parse, clean, categorize              | 2hr      |
-| Bonus         | FastAPI `/transactions` + `/analytics` endpoints  | 3hr      |
 
 
