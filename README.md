@@ -110,7 +110,7 @@ raw/momo.xml
 
 ## Setup & Installation
 
->  Setup instructions will be updated as we build the project.
+Setup instructions will be updated as we build the project.
 
 ### Prerequisites
 - Python 3.9+
