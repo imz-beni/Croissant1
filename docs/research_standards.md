@@ -270,5 +270,4 @@ Suggested initial tasks (Epics + Stories):
 | Testing       | Unit tests: parse, clean, categorize              | 2hr      |
 | Bonus         | FastAPI `/transactions` + `/analytics` endpoints  | 3hr      |
 
----
 
