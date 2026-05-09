@@ -272,4 +272,3 @@ Suggested initial tasks (Epics + Stories):
 
 ---
 
-*Document prepared by Person 5 — Research & Standards Lead. Commit this file to the repo at `docs/research_standards.md`.*
