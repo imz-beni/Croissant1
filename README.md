@@ -36,7 +36,7 @@ This system builds a complete data pipeline and analytics interface on top of th
 
 ##  System Architecture
 
-  https://github.com/imz-beni/Croissant1/blob/main/architecture.png
+[Architecture Diagram](architecture.png)
 
 **High-level flow:**
 ```
