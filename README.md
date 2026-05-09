@@ -155,7 +155,7 @@ bash scripts/serve_frontend.sh
 | Backend API _(optional)_ | FastAPI + Pydantic |
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
 | Data Visualization | Chart.js _(planned)_ |
-| Project Management | _[GitHub Projects / Trello — link below]_ |
+| Project Management | GitHub Projects |
 
 ---
 
