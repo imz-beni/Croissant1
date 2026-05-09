@@ -1,6 +1,6 @@
 #  Team Croissant — MoMo SMS Data Pipeline & Dashboard
 
-> A fullstack data engineering project that processes MTN Mobile Money (MoMo) SMS transaction data from XML, cleans and categorizes it, stores it in a relational database, and presents it through an interactive analytics dashboard.
+A team project that processes MoMo SMS XML data, stores it in a database, and visualizes it on a dashboard.
 
 ---
 
@@ -31,8 +31,6 @@ This system builds a complete data pipeline and analytics interface on top of th
 5. **Export** — generates a `dashboard.json` file aggregating key metrics for the frontend to consume
 6. **Visualize** — presents the data through a browser-based dashboard with charts and summary tables
 
-### Who Is It For?
-Anyone who wants to understand their MoMo transaction history at a glance — spending patterns, transaction frequency, category breakdowns, and more — without manually reading through hundreds of SMS messages.
 
 ---
 
@@ -112,7 +110,7 @@ raw/momo.xml
 
 ## Setup & Installation
 
->  _Full setup instructions will be completed once the ETL and backend are built. The steps below reflect the intended workflow._
+Setup instructions will be updated as we build the project.
 
 ### Prerequisites
 - Python 3.9+
