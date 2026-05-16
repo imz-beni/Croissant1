@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -59,7 +59,7 @@ INSERT IGNORE INTO transactions (
 );
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -73,7 +73,7 @@ INSERT IGNORE INTO transactions (
 );
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -87,7 +87,7 @@ INSERT IGNORE INTO transactions (
 );
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -101,7 +101,7 @@ INSERT IGNORE INTO transactions (
 );
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -115,7 +115,7 @@ INSERT IGNORE INTO transactions (
 );
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -129,7 +129,7 @@ INSERT IGNORE INTO transactions (
 );
 
 
-INSERT IGNORE INTO transactions (
+INSERT INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,

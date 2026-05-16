@@ -34,29 +34,29 @@ CREATE TABLE IF NOT EXISTS transaction_user_roles (
 
 
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (76662021700, 2, 'SENDER'),
 (76662021700, 1, 'RECEIVER');
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (73214484437, 1, 'SENDER'),
 (73214484437, 2, 'RECEIVER');
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (1715445936412, 1, 'ACCOUNT_OWNER');
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (1715452495316, 1, 'SENDER'),
 (1715452495316, 3, 'RECEIVER');
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (14262449979, 4, 'SENDER'),
 (14262449979, 1, 'RECEIVER');
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (13913173274, 1, 'SENDER');
 
-INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (1715452495316, 5, 'RECEIVER');
 
 
