@@ -1,5 +1,5 @@
 
-CREATE TABLE transaction_user_roles (
+CREATE TABLE IF NOT EXISTS transaction_user_roles (
     role_id         INT         NOT NULL AUTO_INCREMENT COMMENT 'Surrogate PK for this participation record',
     transaction_id  BIGINT      NOT NULL                COMMENT 'FK to transactions.transaction_id',
     user_id         INT         NOT NULL                COMMENT 'FK to users.user_id',
@@ -34,29 +34,29 @@ CREATE TABLE transaction_user_roles (
 
 
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (76662021700, 2, 'SENDER'),
 (76662021700, 1, 'RECEIVER');
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (73214484437, 1, 'SENDER'),
 (73214484437, 2, 'RECEIVER');
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (1715445936412, 1, 'ACCOUNT_OWNER');
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (1715452495316, 1, 'SENDER'),
 (1715452495316, 3, 'RECEIVER');
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (14262449979, 4, 'SENDER'),
 (14262449979, 1, 'RECEIVER');
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (13913173274, 1, 'SENDER');
 
-INSERT INTO transaction_user_roles (transaction_id, user_id, role) VALUES
+INSERT IGNORE INTO transaction_user_roles (transaction_id, user_id, role) VALUES
 (1715452495316, 5, 'RECEIVER');
 
 

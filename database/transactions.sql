@@ -1,4 +1,4 @@
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
     transaction_id       BIGINT          NOT NULL COMMENT 'Financial Transaction Id or TxId extracted from SMS body',
     sms_unix_timestamp   BIGINT          NOT NULL COMMENT 'Raw Unix timestamp (ms) from the XML date attribute',
     transaction_datetime DATETIME        NOT NULL COMMENT 'Human-readable datetime parsed from the SMS body text',
@@ -45,7 +45,7 @@ CREATE TABLE transactions (
 
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -59,7 +59,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -73,7 +73,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -87,7 +87,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -101,7 +101,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -115,7 +115,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -129,7 +129,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
