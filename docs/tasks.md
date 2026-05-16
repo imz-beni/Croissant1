@@ -19,11 +19,11 @@ Scrum Board: https://github.com/users/Teta-Dianah/projects/1
 
 | # | Task | Assigned To | Status |
 |---|------|-------------|--------|
-| 9 | Design ERD and full database schema | nshutilancelot3, iaxcel-ai | In Progress |
-| 10 | Write SQL table definitions (Transactions, Users, Categories) | nshutilancelot3, imz-beni | In Progress |
-| 11 | Implement System_Logs table and validation rules | Teta-Dianah | In Progress |
-| 12 | Write sample data, demo queries and integration tests | rderrick-ux | In Progress |
-| 13 | Compile database_setup.sql, indexes and project documentation | imz-beni, nshutilancelot3 | In Progress |
+| 9 | Write transactions.sql and junction_table.sql | nshutilancelot3 | In Progress |
+| 10 | Write users.sql, indexes.sql, and database_setup.sql | imz-beni | In Progress |
+| 11 | Write system_logs.sql and validation_rules.sql | Teta-Dianah | In Progress |
+| 12 | Write complex_transaction.json, mapping_queries.sql, and integration_tests.sql | rderrick-ux | In Progress |
+| 13 | Write categories.sql and build ERD diagram | iaxcel-ai | In Progress |
 
 ## Week 3 — ETL Pipeline & Testing
 
