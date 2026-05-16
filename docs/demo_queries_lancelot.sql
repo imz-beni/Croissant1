@@ -39,3 +39,14 @@ LEFT JOIN users receiver_u
 ORDER BY t.transaction_datetime ASC;
 
 
+SELECT
+    transaction_type,
+    COUNT(*)        AS total_count,
+    SUM(amount)     AS total_amount,
+    SUM(fee)        AS total_fees,
+    AVG(amount)     AS avg_amount
+FROM transactions
+GROUP BY transaction_type
+ORDER BY total_amount DESC;
+
+
