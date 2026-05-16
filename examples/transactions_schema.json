@@ -1,5 +1,6 @@
 {
   "transaction_id": 76662021700,
+  "currency": "RWF",
   "sms_unix_timestamp": 1715351458724,
   "transaction_datetime": "2024-05-10T16:30:51",
   "transaction_type": "INCOMING",
