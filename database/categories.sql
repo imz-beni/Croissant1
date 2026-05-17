@@ -24,7 +24,7 @@ INSERT INTO transaction_categories(category_code, description) VALUES
     ('received',         'money received from another momo user'),
     ('payment',            'outgoing payment to another person'),
     ('transfer',           'money transfer to a phone number'),
-    ('bank deposit',       'cash deposited into momo from bank'),
+    ('bank_deposit',       'cash deposited into momo from bank'),
     ('airtime',            'Airtime purchase using MoMo balance'),
     ('direct_payment',     'Payment processed by a merchant or business'),
     ('withdrawal',         'Cash withdrawn from MoMo via an agent'),
