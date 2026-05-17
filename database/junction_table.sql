@@ -75,6 +75,7 @@ SET role = 'MERCHANT'
 WHERE user_id = 2
   AND transaction_id = (SELECT transaction_id FROM transactions WHERE momo_tx_id = 73214484437);
 
-DELETE FROM transaction_participants
-WHERE role = 'MERCHANT'
-  AND transaction_id = (SELECT transaction_id FROM transactions WHERE momo_tx_id = 73214484437);
+DELETE tp FROM transaction_participants tp
+JOIN transactions t ON tp.transaction_id = t.transaction_id
+WHERE tp.role = 'MERCHANT'
+  AND t.momo_tx_id = 73214484437;

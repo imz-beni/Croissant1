@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     external_tx_id       VARCHAR(40)     NULL                       COMMENT 'External Transaction Id present only on merchant debit messages',
     category_id          INT             NOT NULL                   COMMENT 'FK to transaction_categories.category_id',
     log_id               BIGINT          NULL                       COMMENT 'FK to system_logs.log_id, the ingestion record that produced this row',
-    raw_body             VARCHAR(500)    NOT NULL                   COMMENT 'Original SMS body text kept for audit and re-parsing',
+    raw_body             TEXT            NOT NULL                   COMMENT 'Original SMS body text kept for audit and re-parsing',
     created_at           DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp when this row was inserted by the pipeline',
 
     PRIMARY KEY (transaction_id),
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 
     CONSTRAINT chk_amount_positive      CHECK (amount      > 0),
     CONSTRAINT chk_fee_non_negative     CHECK (fee         >= 0),
-    CONSTRAINT chk_balance_non_negative CHECK (new_balance >= 0),
+    CONSTRAINT chk_balance_non_negative CHECK (new_balance IS NULL OR new_balance >= 0),
 
     CONSTRAINT fk_tx_category FOREIGN KEY (category_id)
         REFERENCES transaction_categories(category_id)
