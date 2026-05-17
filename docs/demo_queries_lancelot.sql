@@ -19,9 +19,9 @@ SELECT
     t.transaction_type,
     t.amount,
     sender_u.full_name    AS sender_name,
-    sender_u.phone_number AS sender_phone,
+    sender_u.phone AS sender_phone,
     receiver_u.full_name  AS receiver_name,
-    receiver_u.phone_number AS receiver_phone
+    receiver_u.phone AS receiver_phone
 FROM transactions t
 
 LEFT JOIN transaction_user_roles sender_role
