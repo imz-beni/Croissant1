@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -59,7 +59,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -73,7 +73,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -82,12 +82,12 @@ INSERT INTO transactions (
     1715445936412, 1715445936412, '2024-05-11 18:43:49',
     'BANK_DEPOSIT', 40000.00, 0.00, 40400.00,
     NULL, '250795963036', NULL, NULL,
-    NULL, NULL, NULL, 3,
+    NULL, NULL, NULL, 4,
     '*113*R*A bank deposit of 40000 RWF has been added to your mobile money account at 2024-05-11 18:43:49. Your NEW BALANCE :40400 RWF. Cash Deposit::CASH::::0::250795963036.Thank you for using MTN MobileMoney.*EN#'
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -96,12 +96,12 @@ INSERT INTO transactions (
     1715452495316, 1715452495316, '2024-05-11 20:34:47',
     'TRANSFER_SENT', 10000.00, 100.00, 28300.00,
     NULL, '36521838', 'Samuel Carter', '250791666666',
-    NULL, NULL, NULL, 4,
+    NULL, NULL, NULL, 3,
     '*165*S*10000 RWF transferred to Samuel Carter (250791666666) from 36521838 at 2024-05-11 20:34:47 . Fee was: 100 RWF. New balance: 28300 RWF.'
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -115,7 +115,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -129,7 +129,7 @@ INSERT INTO transactions (
 );
 
 
-INSERT INTO transactions (
+INSERT IGNORE INTO transactions (
     transaction_id, sms_unix_timestamp, transaction_datetime,
     transaction_type, amount, fee, balance_after,
     sender_name, sender_phone, receiver_name, receiver_phone,
@@ -138,7 +138,7 @@ INSERT INTO transactions (
     14324965479, 1718079981570, '2024-06-11 06:26:11',
     'BUNDLE', 2000.00, 0.00, 350.00,
     NULL, NULL, 'Bundles and Packs', NULL,
-    NULL, '', NULL, 7,
+    NULL, '', NULL, 5,
     '*162*TxId:14324965479*S*Your payment of 2000 RWF to Bundles and Packs with token  has been completed at 2024-06-11 06:26:11. Fee was 0 RWF. Your new balance: 350 RWF . Message: - -. *EN#'
 );
 
