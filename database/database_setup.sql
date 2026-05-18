@@ -1,7 +1,6 @@
 -- =============================================================
 -- Team Croissant · MoMo SMS Data Pipeline
 -- File: database/database_setup.sql
--- Owner: Imanzi Beni (integration engineer)
 -- Description: Full database setup script. Run on a clean MySQL
 --              database to build all tables, indexes, and seed
 --              data in correct dependency order.
@@ -12,8 +11,13 @@
 --               junction table), compiled by Beni
 -- =============================================================
 
-SET FOREIGN_KEY_CHECKS = 0;
+CREATE DATABASE IF NOT EXISTS momo_db
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
+USE momo_db;
+
+SET FOREIGN_KEY_CHECKS = 0;
 -- -------------------------------------------------------------
 -- DROP in reverse dependency order (children before parents)
 -- -------------------------------------------------------------
