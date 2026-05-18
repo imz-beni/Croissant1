@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="RZDx-B8Qi4PAQ91pBv2u">
+    <mxGraphModel dx="1290" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#000000)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" value="MoMo SMS Database — Entity Relationship Diagram" vertex="1">
+          <mxGeometry height="40" width="800" x="200" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tc" parent="1" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" value="transaction_categories" vertex="1">
+          <mxGeometry height="100" width="240" x="20" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tc1" parent="tc" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;b&gt;PK&lt;/b&gt; category_id : INT&lt;br/&gt;category_code : VARCHAR(30)&lt;br/&gt;description : VARCHAR(120)" vertex="1">
+          <mxGeometry height="70" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="u" parent="1" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" value="users" vertex="1">
+          <mxGeometry height="140" width="240" x="20" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="u1" parent="u" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;b&gt;PK&lt;/b&gt; user_id : INT&lt;br/&gt;full_name : VARCHAR(120)&lt;br/&gt;phone : VARCHAR(20)&lt;br/&gt;user_type : ENUM&lt;br/&gt;created_at : DATETIME" vertex="1">
+          <mxGeometry height="110" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sl" parent="1" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" value="system_logs" vertex="1">
+          <mxGeometry height="110" width="240" x="680" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sl1" parent="sl" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;b&gt;PK&lt;/b&gt; log_id : BIGINT&lt;br/&gt;log_level : ENUM&lt;br/&gt;message : VARCHAR(255)&lt;br/&gt;logged_at : DATETIME" vertex="1">
+          <mxGeometry height="80" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tr" parent="1" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" value="transactions  (central fact table)" vertex="1">
+          <mxGeometry height="420" width="280" x="340" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tr1" parent="tr" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;b&gt;PK&lt;/b&gt; transaction_id : BIGINT&lt;br/&gt;momo_tx_id : BIGINT [UNIQUE]&lt;br/&gt;external_tx_id : VARCHAR(40)&lt;br/&gt;&lt;b&gt;FK&lt;/b&gt; category_id : INT&lt;br/&gt;amount : DECIMAL(12,2)&lt;br/&gt;fee : DECIMAL(12,2)&lt;br/&gt;new_balance : DECIMAL(12,2)&lt;br/&gt;direction : ENUM&lt;br/&gt;counterparty_name : VARCHAR(120)&lt;br/&gt;counterparty_phone : VARCHAR(20)&lt;br/&gt;counterparty_account : VARCHAR(30)&lt;br/&gt;momo_account : VARCHAR(30)&lt;br/&gt;transaction_date : DATETIME&lt;br/&gt;raw_body : VARCHAR(500)&lt;br/&gt;&lt;b&gt;FK&lt;/b&gt; log_id : BIGINT&lt;br/&gt;created_at : DATETIME" vertex="1">
+          <mxGeometry height="390" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tp" parent="1" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" value="transaction_participants  (junction)" vertex="1">
+          <mxGeometry height="140" width="250" x="700" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="tp1" parent="tp" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;b&gt;PK&lt;/b&gt; participant_id : BIGINT&lt;br/&gt;&lt;b&gt;FK&lt;/b&gt; transaction_id : BIGINT&lt;br/&gt;&lt;b&gt;FK&lt;/b&gt; user_id : INT&lt;br/&gt;role : ENUM&lt;br/&gt;created_at : DATETIME" vertex="1">
+          <mxGeometry height="110" width="250" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="tc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERmany;strokeWidth=2;endFill=0;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;" target="tr" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="sl" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERmany;strokeWidth=2;endFill=0;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.2;entryDx=0;entryDy=0;" target="tr" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="tr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERmany;strokeWidth=2;endFill=0;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" target="tp" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="u" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERmany;strokeWidth=2;endFill=0;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" target="tp" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;spacingLeft=5;fontSize=10;" value="LEGEND&lt;br/&gt;Blue: transaction_categories&lt;br/&gt;Green: users&lt;br/&gt;Orange: system_logs&lt;br/&gt;Red: transactions (central fact)&lt;br/&gt;Purple: transaction_participants&lt;br/&gt;&lt;br/&gt;ERone ── ERmany = 1:N relationship&lt;br/&gt;PK = Primary Key | FK = Foreign Key" vertex="1">
+          <mxGeometry height="120" width="240" x="20" y="600" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
