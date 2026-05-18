@@ -1,0 +1,20 @@
+{
+  "transaction_id": 76662021700,
+  "currency": "RWF",
+  "sms_unix_timestamp": 1715351458724,
+  "transaction_datetime": "2024-05-10T16:30:51",
+  "transaction_type": "INCOMING",
+  "amount": 2000.00,
+  "fee": 0.00,
+  "balance_after": 2000.00,
+  "sender_name": "Jane Smith",
+  "sender_phone": "*********013",
+  "receiver_name": null,
+  "receiver_phone": null,
+  "receiver_code": null,
+  "token": null,
+  "external_tx_id": null,
+  "category_id": 1,
+  "raw_sms_body": "You have received 2000 RWF from Jane Smith (*********013) on your mobile money account at 2024-05-10 16:30:51. Message from sender: . Your new balance:2000 RWF. Financial Transaction Id: 76662021700.",
+  "created_at": "2024-05-10T16:30:58"
+}
