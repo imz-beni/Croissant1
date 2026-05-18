@@ -57,7 +57,7 @@
     }
   },
   "transaction_participants": {
-    "role_id": 1,
+    "participant_id": 1,
     "transaction_id": 76662021700,
     "user_id": 2,
     "role": "SENDER",
