@@ -162,17 +162,77 @@ bash scripts/serve_frontend.sh
 https://github.com/users/Teta-Dianah/projects/1
 
 ---
+## Database Design (Week 2)
 
-## Week 2 — Database
+The database layer uses **MySQL 8.x with InnoDB** engine. The schema is built around one central fact table (transactions) with four supporting tables, plus a junction table that resolves the many-to-many relationship between users and transactions.
 
-The database has 5 tables: Transactions, Users,
-Transaction_Categories, System_Logs,
-Transaction_Participants.
+### Schema Overview
 
-To set up run:
-    bash scripts/run_etl.sh
+| Table | Role | Purpose |
+|-------|------|---------|
+| transaction_categories | Lookup | 8 distinct MoMo transaction types observed in the SMS data |
+| users | Core | Every person or organisation involved in a transaction |
+| system_logs | Core | Audit trail for the ETL pipeline |
+| transactions | Central fact | One row per MoMo SMS transaction parsed from the source XML |
+| transaction_participants | Junction | Resolves the Users ↔ Transactions many-to-many relationship |
 
-- ERD diagram: docs/erd_diagram
-- JSON example: data/processed/complex_transaction.json
-- Integration tests: docs/integration_tests.sql
-- Mapping queries: docs/mapping_queries.sql
+### ERD Diagram
+
+![ERD Diagram](docs/ERD_Diagram.png)
+
+### Setting Up the Database
+bash
+# Start MySQL and create the database
+mysql -u root -p
+sql
+CREATE DATABASE momo_db;
+USE momo_db;
+SOURCE database/database_setup.sql;
+
+### Repository Structure (Week 2 additions)
+
+```
+├── database/
+│   ├── database_setup.sql        # Full schema — run this to set up the database
+│   ├── categories.sql            # Transaction_Categories table
+│   ├── users.sql                 # Users table
+│   ├── system_logs.sql           # System_Logs table
+│   ├── transactions.sql          # Transactions table (central fact)
+│   ├── junction_table.sql        # Transaction_Participants junction table
+│   ├── indexes.sql               # Performance indexes across the schema
+│   └── validation_rules.sql      # CHECK constraints for data integrity
+├── docs/
+│   ├── ERD_Diagram.drawio        # Editable ERD source file
+│   ├── ERD_Diagram.png           # Exported ERD image
+│   ├── design_rationale.md       # Schema design justification
+│   ├── data_dictionary_*.md      # Per-table column descriptions
+│   └── demo_queries_*.sql        # Per-member demonstration queries
+└── examples/
+    ├── categories_schema.json    # JSON schema for Transaction_Categories
+    ├── users_schema.json         # JSON schema for Users
+    ├── system_logs_schema.json   # JSON schema for System_Logs
+    ├── transactions_schema.json  # JSON schema for Transactions
+    ├── junction_schema.json      # JSON schema for Transaction_Participants
+    └── complex_transaction.json  # Full nested transaction API response
+
+```
+### Design Decisions
+
+Money values use DECIMAL(12,2) — never floating point, to avoid rounding errors on totals
+Transaction IDs use BIGINT — real MoMo provider IDs (e.g. 76662021700) exceed the range of INT
+Phone numbers are stored as VARCHAR(20) — values can be masked (*********013) or carry a country prefix (250791666666)
+Small fixed value sets use ENUM — invalid entries are rejected at the database level
+Every table has a single-column surrogate primary key for stable row identification
+Foreign keys use explicit ON DELETE rules: RESTRICT for lookups, CASCADE for the junction, SET NULL for logs
+
+### Week 2 Contributions
+
+| Member | Contribution |
+|--------|--------------|
+| Nshuti Lancelot | Schema design, Transactions table, junction table, design rationale |
+| Imanzi Beni | Users table, indexes, database_setup.sql integration |
+| Ishimwe Axcel | Transaction_Categories table, ERD diagram, demo queries |
+| Teta Dianah | System_Logs table, CHECK constraints, AI usage log |
+| Rugwiro Derrick | Complex nested JSON, integration tests, final PDF assembly |
+
+---
