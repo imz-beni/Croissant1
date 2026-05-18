@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS momo_db;
+USE momo_db;
+
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS transaction_participants;
