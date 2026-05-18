@@ -1,23 +1,11 @@
 -- Validation rules for momo_db
 -- Owned by: Teta Dianah
 -- Purpose: Adding CHECK constraints to make sure wrong data doesn't get saved.
---          I added rules for transactions, users,
---          transaction_categories and system_logs.
+--          I added rules for users, transaction_categories and system_logs.
+--          The transactions table constraints are already in database_setup.sql.
 --          Make sure all tables exist before running this.
 
 USE momo_db;
-
--- amount has to be more than 0, you cant send nothing
-ALTER TABLE transactions
-  ADD CONSTRAINT chk_amount_positive CHECK (amount > 0);
-
--- fee cant be negative, 0 is fine for free transfers
-ALTER TABLE transactions
-  ADD CONSTRAINT chk_fee_non_negative CHECK (fee >= 0);
-
--- balance shouldnt go below 0 after a transaction
-ALTER TABLE transactions
-  ADD CONSTRAINT chk_balance_non_negative CHECK (new_balance >= 0);
 
 -- phone number must be at least 10 digits like 0788123456
 ALTER TABLE users
