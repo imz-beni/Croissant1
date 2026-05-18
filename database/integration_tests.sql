@@ -1,4 +1,4 @@
-- Step 1: Insert a user
+-- Step 1: Insert a user
 INSERT INTO Users (full_name, phone, user_type)
 VALUES ('Test User', '250788000001', 'CUSTOMER');
 
