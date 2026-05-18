@@ -162,3 +162,17 @@ bash scripts/serve_frontend.sh
 https://github.com/users/Teta-Dianah/projects/1
 
 ---
+
+## Week 2 — Database
+
+The database has 5 tables: Transactions, Users,
+Transaction_Categories, System_Logs,
+Transaction_Participants.
+
+To set up run:
+    bash scripts/run_etl.sh
+
+- ERD diagram: docs/erd_diagram
+- JSON example: data/processed/complex_transaction.json
+- Integration tests: docs/integration_tests.sql
+- Mapping queries: docs/mapping_queries.sql
