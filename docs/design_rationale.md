@@ -12,11 +12,11 @@ Transactions sits at the centre. It holds a foreign key to `transaction_categori
 
 ## The Junction Table
 
-`transaction_user_roles` holds the triple (transaction_id, user_id, role). The `role` column is an ENUM — SENDER, RECEIVER, ACCOUNT_OWNER, DEPOSITOR — making role-specific queries straightforward. The UNIQUE constraint on (transaction_id, user_id, role) prevents duplicate participation records.
+`transaction_participants` holds the triple (transaction_id, user_id, role). The `role` column is an ENUM — SENDER, RECEIVER, AGENT, MERCHANT, ACCOUNT_OWNER, DEPOSITOR — making role-specific queries straightforward. The UNIQUE constraint on (transaction_id, user_id, role) prevents duplicate participation records.
 
 ## Trade-offs Considered
 
-Storing `raw_sms_body` on every Transactions row adds storage overhead, but preserves the ability to re-parse when parsing logic improves — a worthwhile trade for a pipeline that processes natural-language input. Using a BIGINT primary key (the MTN transaction ID) instead of AUTO_INCREMENT ties the database identity directly to the source system, eliminating surrogate-key lookups during import. The risk is collision if two message types use overlapping ID spaces; for bank deposits and transfers without an explicit txId, the sms Unix timestamp is used as a surrogate, which is unique within the dataset.
+Storing `raw_body` on every Transactions row adds storage overhead, but preserves the ability to re-parse when parsing logic improves — a worthwhile trade for a pipeline that processes natural-language input. We considered using the MTN transaction ID directly as the primary key, but rejected it: not every SMS carries a txId (bank deposits and some transfers omit it), so that key would be unstable. Instead, `transaction_id` is an AUTO_INCREMENT surrogate key, and the provider ID is kept in a separate nullable `momo_tx_id` column with a UNIQUE constraint — this gives every row a stable identity while still de-duplicating on the provider ID whenever one is present.
 
 ## Data Type Decisions
 

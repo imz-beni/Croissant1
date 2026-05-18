@@ -27,7 +27,7 @@ This system builds a complete data pipeline and analytics interface on top of th
 1. **Parse** — reads and extracts transaction records from the raw XML file
 2. **Clean & Normalize** — standardizes amounts (strips currency symbols), formats dates consistently, and normalizes phone numbers
 3. **Categorize** — classifies each transaction into a type (e.g. incoming money, sent payment, airtime purchase, bank deposit, withdrawal via agent, etc.)
-4. **Load** — stores the cleaned, categorized records into a SQLite relational database
+4. **Load** — stores the cleaned, categorized records into a MySQL relational database
 5. **Export** — generates a `dashboard.json` file aggregating key metrics for the frontend to consume
 6. **Visualize** — presents the data through a browser-based dashboard with charts and summary tables
 
@@ -47,7 +47,7 @@ raw/momo.xml
   parse_xml.py  →  clean_normalize.py  →  categorize.py  →  load_db.py
      │
      ▼
- db.sqlite3
+ MySQL database (momo_db)
      │
      ├──▶ export → data/processed/dashboard.json
      │
@@ -79,7 +79,6 @@ raw/momo.xml
 │   │   └── momo.xml
 │   ├── processed/                    # Aggregated output for the frontend
 │   │   └── dashboard.json
-│   ├── db.sqlite3                    # SQLite database file
 │   └── logs/
 │       ├── etl.log                   # Structured logs from ETL runs
 │       └── dead_letter/              # XML snippets that failed to parse
@@ -94,7 +93,7 @@ raw/momo.xml
 ├── api/                              # Optional bonus API layer
 │   ├── __init__.py
 │   ├── app.py                        # FastAPI app with /transactions, /analytics
-│   ├── db.py                         # SQLite connection helpers
+│   ├── db.py                         # MySQL connection helpers
 │   └── schemas.py                    # Pydantic response models
 ├── scripts/
 │   ├── run_etl.sh                    # Runs the full ETL pipeline
@@ -125,7 +124,7 @@ cd Croissant1
 
 # 2. Set up environment variables
 cp .env.example .env
-# Edit .env with your local values (e.g. path to SQLite DB)
+# Edit .env with your local values (e.g. MySQL connection settings)
 
 # 3. Install Python dependencies
 pip install -r requirements.txt
@@ -149,7 +148,7 @@ bash scripts/serve_frontend.sh
 |-------|-----------|
 | XML Parsing | Python — `xml.etree.ElementTree` / `lxml` |
 | Data Cleaning | Python — `dateutil`, `re` |
-| Database | SQLite via `sqlite3` |
+| Database | MySQL 8.x with InnoDB |
 | Backend API  | FastAPI + Pydantic |
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
 | Data Visualization | Chart.js  |

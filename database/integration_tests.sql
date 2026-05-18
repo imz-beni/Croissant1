@@ -1,4 +1,4 @@
-- Step 1: Insert a user
+-- Step 1: Insert a user
 INSERT INTO Users (full_name, phone, user_type)
 VALUES ('Test User', '250788000001', 'CUSTOMER');
 
@@ -8,13 +8,13 @@ VALUES ('INFO', 'Test transaction parsed successfully');
 
 -- Step 3: Insert a transaction
 INSERT INTO Transactions (
-  momo_tx_id, category_id, amount, fee,
+  momo_tx_id, category_id, transaction_type, amount, fee,
   new_balance, direction, counterparty_name,
   transaction_date, raw_body, log_id,
   sms_unix_timestamp
 )
 VALUES (
-  99999999999, 1, 5000.00, 100.00,
+  99999999999, 3, 'TRANSFER_SENT', 5000.00, 100.00,
   28300.00, 'DEBIT', 'Test User',
   '2024-05-11 20:34:47',
   '5000 RWF transferred to Test User',
