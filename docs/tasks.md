@@ -15,25 +15,25 @@ Scrum Board: https://github.com/users/Teta-Dianah/projects/1
 | 7 | Set up Scrum board | Teta-Dianah | Done |
 | 8 | Write project README | rderrick-ux | Done |
 
-## Week 2 — ETL Pipeline
+## Week 2 — Database Schema Design
 
 | # | Task | Assigned To | Status |
 |---|------|-------------|--------|
-| 9 | Implement XML parser | TBD | Backlog |
-| 10 | Implement data cleaning and normalization | TBD | Backlog |
-| 11 | Implement transaction categorization | TBD | Backlog |
-| 12 | Implement database loader | TBD | Backlog |
-| 13 | Build ETL orchestration pipeline | TBD | Backlog |
+| 9 | Write transactions.sql and junction_table.sql | nshutilancelot3 | In Progress |
+| 10 | Write users.sql, indexes.sql, and database_setup.sql | imz-beni | In Progress |
+| 11 | Write system_logs.sql and validation_rules.sql | Teta-Dianah | In Progress |
+| 12 | Write complex_transaction.json, mapping_queries.sql, and integration_tests.sql | rderrick-ux | In Progress |
+| 13 | Write categories.sql and build ERD diagram | iaxcel-ai | In Progress |
 
-## Week 3 — Testing & API
+## Week 3 — ETL Pipeline & Testing
 
 | # | Task | Assigned To | Status |
 |---|------|-------------|--------|
-| 14 | Write unit tests for XML parser | TBD | Backlog |
-| 15 | Write unit tests for data cleaning and categorization | TBD | Backlog |
-| 16 | Write integration tests for the full ETL pipeline | TBD | Backlog |
-| 17 | Build REST API endpoints | TBD | Backlog |
-| 18 | Define API response schemas | TBD | Backlog |
+| 14 | Implement XML parser and data cleaning | TBD | Backlog |
+| 15 | Implement transaction categorization | TBD | Backlog |
+| 16 | Build ETL orchestration pipeline | TBD | Backlog |
+| 17 | Write unit and integration tests for ETL pipeline | TBD | Backlog |
+| 18 | Build REST API endpoints and define response schemas | TBD | Backlog |
 
 ## Week 4 — Frontend & Polish
 
