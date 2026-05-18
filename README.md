@@ -162,6 +162,7 @@ bash scripts/serve_frontend.sh
 https://github.com/users/Teta-Dianah/projects/1
 
 ---
+
 ## Database Design (Week 2)
 
 The database layer uses **MySQL 8.x with InnoDB** engine. The schema is built around one central fact table (transactions) with four supporting tables, plus a junction table that resolves the many-to-many relationship between users and transactions.
@@ -180,13 +181,17 @@ The database layer uses **MySQL 8.x with InnoDB** engine. The schema is built ar
 
 ![ERD Diagram](docs/ERD_Diagram.png)
 
+### Database Setup
 
-# Start MySQL and create the database
-mysql -u root -p
-sql
-CREATE DATABASE momo_db;
-USE momo_db;
-SOURCE database/database_setup.sql;
+Requires **MySQL 8.0+**. Run the two scripts in order:
+
+```bash
+# 1. Create the database, all tables, indexes, and seed data
+mysql -u root -p < database/database_setup.sql
+
+# 2. Apply additional CHECK constraints
+mysql -u root -p momo_db < database/validation_rules.sql
+```
 
 ### Repository Structure (Week 2 additions)
 
@@ -204,7 +209,6 @@ SOURCE database/database_setup.sql;
 │   ├── ERD_Diagram.drawio        # Editable ERD source file
 │   ├── ERD_Diagram.png           # Exported ERD image
 │   ├── design_rationale.md       # Schema design justification
-│   ├── data_dictionary_*.md      # Per-table column descriptions
 │   └── demo_queries_*.sql        # Per-member demonstration queries
 └── examples/
     ├── categories_schema.json    # JSON schema for Transaction_Categories
@@ -213,16 +217,16 @@ SOURCE database/database_setup.sql;
     ├── transactions_schema.json  # JSON schema for Transactions
     ├── junction_schema.json      # JSON schema for Transaction_Participants
     └── complex_transaction.json  # Full nested transaction API response
-
 ```
+
 ### Design Decisions
 
-Money values use DECIMAL(12,2) — never floating point, to avoid rounding errors on totals
-Transaction IDs use BIGINT — real MoMo provider IDs (e.g. 76662021700) exceed the range of INT
-Phone numbers are stored as VARCHAR(20) — values can be masked (*********013) or carry a country prefix (250791666666)
-Small fixed value sets use ENUM — invalid entries are rejected at the database level
-Every table has a single-column surrogate primary key for stable row identification
-Foreign keys use explicit ON DELETE rules: RESTRICT for lookups, CASCADE for the junction, SET NULL for logs
+- Money values use `DECIMAL(12,2)` — never floating point, to avoid rounding errors on totals
+- Transaction IDs use `BIGINT` — real MoMo provider IDs (e.g. 76662021700) exceed the range of INT
+- Phone numbers are stored as `VARCHAR(20)` — values can be masked (`*********013`) or carry a country prefix (`250791666666`)
+- Small fixed value sets use `ENUM` — invalid entries are rejected at the database level
+- Every table has a single-column surrogate primary key for stable row identification
+- Foreign keys use explicit ON DELETE rules: RESTRICT for lookups, CASCADE for the junction, SET NULL for logs
 
 ### Week 2 Contributions
 
