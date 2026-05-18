@@ -1,0 +1,31 @@
+{
+  "transaction_id": 1,
+  "momo_tx_id": 76662021700,
+  "amount": 2000.00,
+  "fee": 0.00,
+  "new_balance": 2000.00,
+  "direction": "CREDIT",
+  "transaction_date": "2024-05-10T16:30:51Z",
+  "raw_body": "You have received 2000 RWF from Jane Smith on your mobile money account",
+  "category": {
+    "category_id": 1,
+    "category_code": "INCOMING_MONEY"
+  },
+  "sender": {
+    "user_id": 42,
+    "full_name": "Jane Smith",
+    "phone": "250788000013",
+    "user_type": "CUSTOMER"
+  },
+  "receiver": {
+    "user_id": 1,
+    "full_name": "Account Owner",
+    "phone": "250788000001",
+    "user_type": "CUSTOMER"
+  },
+  "log": {
+    "log_id": 1,
+    "log_level": "INFO",
+    "message": "Transaction parsed successfully"
+  }
+}
