@@ -5,38 +5,18 @@
 -- Description: Demo queries focused on the Users table
 -- =============================================================
 
--- Query 1: List all users ranked by total number of transactions
--- they appear in, highest first.
--- Demonstrates JOIN between users and transaction_participants.
+-- SCREENSHOT 1: SELECT — see all rows
+SELECT * FROM users;
 
-SELECT
-    u.user_id,
-    u.full_name,
-    u.phone,
-    u.user_type,
-    COUNT(tp.transaction_id) AS total_transactions
-FROM users u
-LEFT JOIN transaction_participants tp
-    ON u.user_id = tp.user_id
-GROUP BY
-    u.user_id,
-    u.full_name,
-    u.phone,
-    u.user_type
-ORDER BY total_transactions DESC;
+-- SCREENSHOT 2: UPDATE — change a value
+UPDATE users SET phone = '250781111111' WHERE full_name = 'Jane Smith';
+SELECT * FROM users WHERE full_name = 'Jane Smith';
 
+-- SCREENSHOT 3: INSERT — add a new row
+INSERT INTO users (full_name, phone, user_type) 
+VALUES ('Test User', '250799999999', 'CUSTOMER');
+SELECT * FROM users;
 
--- Query 2: Find users who have never appeared in any transaction.
--- Demonstrates LEFT JOIN with NULL check.
--- Useful for identifying orphan user records after ingestion.
-
-SELECT
-    u.user_id,
-    u.full_name,
-    u.phone,
-    u.user_type,
-    u.created_at
-FROM users u
-LEFT JOIN transaction_participants tp
-    ON u.user_id = tp.user_id
-WHERE tp.transaction_id IS NULL;
+-- SCREENSHOT 4: DELETE — remove that test row
+DELETE FROM users WHERE full_name = 'Test User';
+SELECT * FROM users;
