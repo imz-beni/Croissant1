@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="RZDx-B8Qi4PAQ91pBv2u">
-    <mxGraphModel dx="1290" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#000000)" math="0" shadow="0">
+    <mxGraphModel dx="1032" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#000000)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -28,7 +28,7 @@
         <mxCell id="tr" parent="1" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" value="transactions  (central fact table)" vertex="1">
           <mxGeometry height="420" width="280" x="340" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="tr1" parent="tr" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;b&gt;PK&lt;/b&gt; transaction_id : BIGINT&lt;br/&gt;momo_tx_id : BIGINT [UNIQUE]&lt;br/&gt;external_tx_id : VARCHAR(40)&lt;br/&gt;&lt;b&gt;FK&lt;/b&gt; category_id : INT&lt;br/&gt;amount : DECIMAL(12,2)&lt;br/&gt;fee : DECIMAL(12,2)&lt;br/&gt;new_balance : DECIMAL(12,2)&lt;br/&gt;direction : ENUM&lt;br/&gt;counterparty_name : VARCHAR(120)&lt;br/&gt;counterparty_phone : VARCHAR(20)&lt;br/&gt;counterparty_account : VARCHAR(30)&lt;br/&gt;momo_account : VARCHAR(30)&lt;br/&gt;transaction_date : DATETIME&lt;br/&gt;raw_body : VARCHAR(500)&lt;br/&gt;&lt;b&gt;FK&lt;/b&gt; log_id : BIGINT&lt;br/&gt;created_at : DATETIME" vertex="1">
+        <mxCell id="tr1" parent="tr" style="text;html=1;align=left;spacingLeft=8;fontSize=10;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;PK&lt;/b&gt; transaction_id : BIGINT&lt;/div&gt;&lt;div&gt;momo_tx_id : BIGINT [UNIQUE]&lt;/div&gt;&lt;div&gt;sms_unix_timestamp : BIGINT&lt;/div&gt;&lt;div&gt;transaction_date : DATETIME&lt;/div&gt;&lt;div&gt;transaction_type : ENUM&lt;/div&gt;&lt;div&gt;direction : ENUM&lt;/div&gt;&lt;div&gt;amount : DECIMAL(12,2)&lt;/div&gt;&lt;div&gt;fee : DECIMAL(12,2)&lt;/div&gt;&lt;div&gt;new_balance : DECIMAL(12,2)&lt;/div&gt;&lt;div&gt;counterparty_name : VARCHAR(120)&lt;/div&gt;&lt;div&gt;counterparty_phone : VARCHAR(20)&lt;/div&gt;&lt;div&gt;counterparty_account : VARCHAR(30)&lt;/div&gt;&lt;div&gt;momo_account : VARCHAR(30)&lt;/div&gt;&lt;div&gt;receiver_code : VARCHAR(20)&lt;/div&gt;&lt;div&gt;token : VARCHAR(100)&lt;/div&gt;&lt;div&gt;external_tx_id : VARCHAR(40)&lt;/div&gt;&lt;div&gt;&lt;b&gt;FK&lt;/b&gt; category_id : INT&lt;/div&gt;&lt;div&gt;&lt;b&gt;FK&lt;/b&gt; log_id : BIGINT&lt;/div&gt;&lt;div&gt;raw_body : VARCHAR(500)&lt;/div&gt;&lt;div&gt;created_at : DATETIME&lt;/div&gt;" vertex="1">
           <mxGeometry height="390" width="280" y="30" as="geometry" />
         </mxCell>
         <mxCell id="tp" parent="1" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" value="transaction_participants  (junction)" vertex="1">
