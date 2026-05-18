@@ -1,4 +1,4 @@
--- Step 1: Insert a user
+- Step 1: Insert a user
 INSERT INTO Users (full_name, phone, user_type)
 VALUES ('Test User', '250788000001', 'CUSTOMER');
 
@@ -22,6 +22,9 @@ VALUES (
   UNIX_TIMESTAMP('2024-05-11 20:34:47')
 );
 
+-- Capture the inserted transaction_id for use in later steps
+SET @test_tx_id = LAST_INSERT_ID();
+
 -- Step 4: Select with joins
 SELECT 
   t.transaction_id,
@@ -41,13 +44,12 @@ WHERE momo_tx_id = 99999999999;
 
 -- Step 6: Insert a participant
 INSERT INTO Transaction_Participants (transaction_id, user_id, role)
-VALUES (LAST_INSERT_ID(), 1, 'SENDER');
+VALUES (@test_tx_id, 1, 'SENDER');
 
 -- Step 7: Delete the transaction
 DELETE FROM Transactions
 WHERE momo_tx_id = 99999999999;
 
--- Step 8: Confirm participants were deleted
+-- Step 8: Confirm participants were cascade-deleted
 SELECT * FROM Transaction_Participants
-WHERE transaction_id = 1;
-
+WHERE transaction_id = @test_tx_id;
