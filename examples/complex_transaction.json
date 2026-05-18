@@ -9,7 +9,7 @@
   "raw_body": "You have received 2000 RWF from Jane Smith on your mobile money account",
   "category": {
     "category_id": 1,
-    "category_code": "INCOMING_MONEY"
+    "category_code": "INCOMING"
   },
   "sender": {
     "user_id": 42,
