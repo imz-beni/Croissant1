@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS transaction_participants (
 ) ENGINE=InnoDB COMMENT='Junction table: one row per (transaction, user, role) combination';
 
 
-INSERT INTO transaction_participants (transaction_id, user_id, role)
+INSERT IGNORE INTO transaction_participants (transaction_id, user_id, role)
 SELECT t.transaction_id, 2, 'SENDER'
 FROM transactions t WHERE t.momo_tx_id = 76662021700
 UNION ALL
