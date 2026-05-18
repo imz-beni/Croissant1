@@ -1,3 +1,17 @@
+-- =============================================================
+-- Team Croissant · MoMo SMS Data Pipeline
+-- File: database/database_setup.sql
+-- Owner: Imanzi Beni (integration engineer)
+-- Description: Full database setup script. Run on a clean MySQL
+--              database to build all tables, indexes, and seed
+--              data in correct dependency order.
+-- Tables: transaction_categories, users, system_logs,
+--         transactions, transaction_participants
+-- Contributors: Axcel (categories), Beni (users, indexes),
+--               Dianah (system_logs), Lancelot (transactions,
+--               junction table), compiled by Beni
+-- =============================================================
+
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- -------------------------------------------------------------
