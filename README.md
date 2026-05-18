@@ -180,8 +180,7 @@ The database layer uses **MySQL 8.x with InnoDB** engine. The schema is built ar
 
 ![ERD Diagram](docs/ERD_Diagram.png)
 
-### Setting Up the Database
-bash
+
 # Start MySQL and create the database
 mysql -u root -p
 sql
