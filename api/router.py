@@ -1,8 +1,4 @@
-# api/router.py
-# Team Croissant · MoMo SMS Data Pipeline
-# Owner: Imanzi Beni
-# Description: Routes incoming HTTP requests to the correct
-#              endpoint handler after authentication check.
+
 
 import re
 

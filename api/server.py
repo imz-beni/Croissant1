@@ -1,8 +1,4 @@
-# api/server.py
-# Team Croissant · MoMo SMS Data Pipeline
-# Owner: Imanzi Beni
-# Description: HTTP server entry point. Handles all incoming
-#              requests and delegates to the router.
+
 
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json

@@ -1,4 +1,4 @@
-
+# api/endpoints/delete.py
 
 
 def handle_delete(transaction_id):
@@ -27,4 +27,3 @@ def handle_delete(transaction_id):
         "message": "Transaction deleted",
         "transaction": deleted_transaction
     }
-

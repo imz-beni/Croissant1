@@ -1,3 +1,4 @@
+
 import json
 
 def save_transactions_json(transactions, output_path):
@@ -21,3 +22,4 @@ if __name__ == '__main__':
     # Load and verify
     loaded = load_transactions_json('data/processed/transactions.json')
     print(f"Loaded {len(loaded)} transactions from JSON")
+
