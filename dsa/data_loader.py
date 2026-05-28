@@ -1,4 +1,3 @@
-
 import json
 
 def save_transactions_json(transactions, output_path):
