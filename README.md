@@ -156,64 +156,119 @@ MySQL 8.x / InnoDB. One central fact table (`transactions`) with four supporting
 
 ---
 
-## REST API(Week 3)
-
-CRUD handlers in [`api/endpoints/`](api/endpoints), backed by `data/processed/transactions.json`.
-
-| Method | Path | Handler | Success | Errors |
-|--------|------|---------|---------|--------|
-| POST | `/transactions` | [create.py](api/endpoints/create.py) | `201` | `400` missing field |
-| PUT | `/transactions/{id}` | [update.py](api/endpoints/update.py) | `200` / `404` | `404` not found |
-
-- **POST** requires `transaction_type`, `amount`, `timestamp`; `currency` defaults to `RWF`. Returns the created record with a new auto-incremented `id`.
-- **PUT** merges the request body into the matching record by `id`.
-
----
-
-## Tech stack
-
-| Layer | Technology |
-|-------|-----------|
-| XML parsing | Python — `xml.etree.ElementTree` / `lxml` |
-| Data cleaning | Python — `dateutil`, `re` |
-| Database | MySQL 8.x (InnoDB) |
-| Backend API | FastAPI + Pydantic |
-| Frontend | HTML5, CSS3, Vanilla JS |
-| Visualization | Chart.js |
-| Project management | GitHub Projects |
-
----
-
-## Additional documentation
-
-| Path | Purpose |
-|------|---------|
-| [docs/design_rationale.md](docs/design_rationale.md) | Schema design justification |
-| [docs/sql_to_json_mapping.md](docs/sql_to_json_mapping.md) | Column → JSON key mapping |
-| [docs/research_standards.md](docs/research_standards.md) | Team analysis & documentation conventions |
-| [docs/ai_usage_log.md](docs/ai_usage_log.md) | Log of AI assistance |
-| [docs/tasks.md](docs/tasks.md) | Week-by-week task breakdown |
-| [docs/screenshots/](docs/screenshots) | CRUD, constraint, and demo-query screenshots |
-| [docs/Team_Croissant_Database_Design_Document (1).pdf](<docs/Team_Croissant_Database_Design_Document (1).pdf>) | Final Week 2 design document |
-| [examples/json_schemas.json](examples/json_schemas.json) | Consolidated JSON schema bundle |
-| [examples/complex_transaction.json](examples/complex_transaction.json) | Full nested transaction API response |
-
----
-
-## How To Run it
-
-uvicorn api.app:app --reload --port 8000
-
-Docs: http://localhost:8000/docs
-
-OpenAPI: http://localhost:8000/openapi.json
-
-## Example
-
-curl -X POST http://localhost:8000/transactions \
+## REST API
+ 
+The API is built on Python's standard-library `http.server` and protected by **HTTP Basic Authentication**. It reads and writes `data/processed/transactions.json`.
+ 
+**Authentication** — every request requires Basic Auth (`username: admin`, `password: momo2024`). Missing or wrong credentials return `401 Unauthorized`.
+ 
+| Method | Path | Handler | Description |
+|--------|------|---------|-------------|
+| GET | `/transactions` | `router.py` | List all transactions with a count |
+| GET | `/transactions/{id}` | `endpoints/retrieve.py` | Fetch one transaction by ID |
+| POST | `/transactions` | `endpoints/create.py` | Create a transaction (`201`; `400` on missing field) |
+| PUT | `/transactions/{id}` | `endpoints/update.py` | Update a transaction (`200` / `404`) |
+| DELETE | `/transactions/{id}` | `endpoints/delete.py` | Delete a transaction (`404` if not found) |
+ 
+POST requires `transaction_type`, `amount`, and `timestamp`; `currency` defaults to `RWF`. Full field reference and examples are in [`docs/api_docs.md`](docs/api_docs.md).
+ 
+### Examples
+ 
+```bash
+# List all transactions
+curl -u admin:momo2024 http://localhost:8000/transactions
+ 
+# Create a transaction
+curl -u admin:momo2024 -X POST http://localhost:8000/transactions \
+>>>>>>> e835ad6 (Updated README)
   -H "Content-Type: application/json" \
   -d '{"transaction_type":"INCOMING_MONEY","amount":5000,"timestamp":"2024-05-12T09:30:00"}'
-
-curl -X PUT http://localhost:8000/transactions/1 \
+ 
+# Update a transaction
+curl -u admin:momo2024 -X PUT http://localhost:8000/transactions/1 \
   -H "Content-Type: application/json" \
   -d '{"amount":7500,"fee":50}'
+<<<<<<< HEAD
+=======
+ 
+# Delete a transaction
+curl -u admin:momo2024 -X DELETE http://localhost:8000/transactions/1
+```
+ 
+---
+ 
+## Data structures & algorithms
+ 
+The `dsa/` module studies how transaction lookup scales with dataset size. It compares **linear search** (`O(n)` — scan every record) against a **dictionary / hash-table lookup** (`O(1)` average, after a one-time `O(n)` build), with binary search included for the sorted-array case. `dsa/performance_test.py` times each method over many lookups and reports the speedup.
+ 
+```bash
+python dsa/performance_test.py
+```
+ 
+---
+ 
+## Setup
+ 
+**Prerequisites:** Python 3.9+, pip, MySQL 8.0+
+ 
+```bash
+# 1. Clone
+git clone https://github.com/imz-beni/Croissant1.git
+cd Croissant1
+ 
+# 2. Environment
+cp .env.example .env          # edit with your MySQL connection settings
+ 
+# 3. Dependencies
+pip install -r requirements.txt
+ 
+# 4. Database
+mysql -u root -p < database/database_setup.sql
+mysql -u root -p momo_db < database/validation_rules.sql
+ 
+# 5. Drop in your XML export
+cp /path/to/momo.xml data/raw/momo.xml
+ 
+# 6. Run the ETL pipeline
+bash scripts/run_etl.sh
+ 
+# 7. Start the API
+python -m api.server          # http://localhost:8000  (Basic Auth: admin / momo2024)
+ 
+# 8. Serve the dashboard
+bash scripts/serve_frontend.sh
+```
+ 
+---
+ 
+## Tech stack
+ 
+| Layer | Technology |
+|-------|-----------|
+| XML parsing | Python — `xml.etree.ElementTree` |
+| Data cleaning | Python — `dateutil`, `re` |
+| Database | MySQL 8.x (InnoDB) |
+| Backend API | Python standard library `http.server` + Basic Auth |
+| Frontend | HTML5, CSS3, Vanilla JS |
+| Visualization | Chart.js |
+| Testing | Pytest |
+| Project management | GitHub Projects (Scrum) |
+ 
+---
+ 
+## Additional documentation
+ 
+| Path | Purpose |
+|------|---------|
+| [docs/design_rationale.md](docs/design_rationale.md) | Schema design justification (Nshuti Lancelot) |
+| [docs/sql_to_json_mapping.md](docs/sql_to_json_mapping.md) | Column → JSON key mapping |
+| [docs/api_docs.md](docs/api_docs.md) | Full REST API reference |
+| [docs/research_standards.md](docs/research_standards.md) | Team analysis & documentation conventions |
+| [docs/ai_usage_log.md](docs/ai_usage_log.md) | Log of AI assistance |
+| [docs/tasks.md](docs/tasks.md) | Week-by-week task breakdown & assignments |
+| [docs/demo_queries_*.sql](docs/) | Per-member demo / CRUD queries |
+| [docs/screenshots/](docs/screenshots) | CRUD, constraint, and demo-query screenshots |
+| [examples/json_schemas.json](examples/json_schemas.json) | Consolidated JSON schema bundle |
+| [examples/complex_transaction.json](examples/complex_transaction.json) | Full nested transaction API response |
+ 
+---
