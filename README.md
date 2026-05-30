@@ -203,7 +203,9 @@ CRUD handlers in [`api/endpoints/`](api/endpoints), backed by `data/processed/tr
 ## How To Run it
 
 uvicorn api.app:app --reload --port 8000
+
 Docs: http://localhost:8000/docs
+
 OpenAPI: http://localhost:8000/openapi.json
 
 ## Example
