@@ -1,240 +1,217 @@
-#  Team Croissant — MoMo SMS Data Pipeline & Dashboard
+# Team Croissant — MoMo SMS Data Pipeline & Dashboard
 
-A team project that processes MoMo SMS XML data, stores it in a database, and visualizes it on a dashboard.
+An end-to-end pipeline that parses MTN Mobile Money (MoMo) SMS XML exports, normalizes and categorizes the transactions, loads them into MySQL, and surfaces the results through a browser dashboard and a small REST API.
 
 ---
 
-## Team Members
+## Team
 
 | Name | Role |
 |------|------|
 | Imanzi Beni | Repo Lead — project structure & environment setup |
-| Rugwiro Derrick | Documentation & README |
-| Ishimwe Axcel | System Architecture Diagram |
-| Teta Dianah | Scrum Board & Backlog Management |
+| Rugwiro Derrick | Documentation, REST API endpoints |
+| Ishimwe Axcel | System architecture diagram |
+| Teta Dianah | Scrum board & backlog management |
 | Nshuti Lancelot | Research Lead — data analysis & DB schema design |
 
----
-
-##  Project Description
-
-### What is MoMo SMS Data?
-MTN Mobile Money (MoMo) is a widely used mobile payment service. Every transaction — whether a deposit, withdrawal, transfer, airtime purchase, or bill payment — generates an SMS notification sent to the user. These SMS messages are exportable in **XML format**, and contain structured information about each transaction including the amount, date, sender/receiver, and transaction type.
-
-### What Does This System Do?
-This system builds a complete data pipeline and analytics interface on top of that raw XML data:
-
-1. **Parse** — reads and extracts transaction records from the raw XML file
-2. **Clean & Normalize** — standardizes amounts (strips currency symbols), formats dates consistently, and normalizes phone numbers
-3. **Categorize** — classifies each transaction into a type (e.g. incoming money, sent payment, airtime purchase, bank deposit, withdrawal via agent, etc.)
-4. **Load** — stores the cleaned, categorized records into a MySQL relational database
-5. **Export** — generates a `dashboard.json` file aggregating key metrics for the frontend to consume
-6. **Visualize** — presents the data through a browser-based dashboard with charts and summary tables
-
+**Scrum board:** https://github.com/users/Teta-Dianah/projects/1
 
 ---
 
-##  System Architecture
+## What the system does
 
-[Architecture Diagram](architecture.png)
+MoMo SMS messages are exportable in XML and describe every deposit, withdrawal, transfer, airtime purchase, and bill payment a user makes. This project turns that raw feed into something queryable and visual:
 
-**High-level flow:**
+1. **Parse** — read transaction records from the raw XML
+2. **Clean & normalize** — standardize amounts, dates, and phone numbers
+3. **Categorize** — classify each transaction (incoming money, sent payment, airtime, deposit, agent withdrawal, …)
+4. **Load** — persist into a MySQL relational schema
+5. **Export** — aggregate metrics into `data/processed/dashboard.json`
+6. **Visualize** — render charts and summary tables in the browser
+7. **Serve** — expose CRUD endpoints over the processed transactions
+
+---
+
+## Architecture
+
+![Architecture Diagram](architecture.png)
+
 ```
 raw/momo.xml
      │
      ▼
-[ETL Pipeline]
-  parse_xml.py  →  clean_normalize.py  →  categorize.py  →  load_db.py
+[ETL]  parse_xml → clean_normalize → categorize → load_db
      │
      ▼
- MySQL database (momo_db)
-     │
-     ├──▶ export → data/processed/dashboard.json
-     │
-     ▼
-[Frontend Dashboard]
-  index.html + chart_handler.js
-     │
-     ▼ (optional)
-[FastAPI Layer]
-  /transactions  /analytics
+MySQL (momo_db) ──▶ export ──▶ data/processed/dashboard.json
+     │                                    │
+     ▼                                    ▼
+[REST API]                         [Frontend Dashboard]
+/transactions  /analytics          index.html + chart_handler.js
 ```
 
 ---
 
-##  Project Structure
+## Repository layout
 
 ```
 .
-├── README.md                         # Project overview, setup, and links
-├── .env.example                      # Environment variable template
-├── requirements.txt                  # Python dependencies
-├── index.html                        # Dashboard entry point (static)
-├── web/
-│   ├── styles.css                    # Dashboard styling
-│   ├── chart_handler.js              # Fetches data and renders charts/tables
-│   └── assets/                       # Images and icons
+├── README.md
+├── .env.example                 # Environment variable template
+├── requirements.txt             # Python dependencies
+├── architecture.{drawio,png}    # System architecture diagram
+├── index.html                   # Dashboard entry point
+│
+├── web/                         # Frontend assets
+│   ├── styles.css
+│   ├── chart_handler.js
+│   └── assets/
+│
 ├── data/
-│   ├── raw/                          # Raw XML input (git-ignored)
-│   │   └── momo.xml
-│   ├── processed/                    # Aggregated output for the frontend
-│   │   └── dashboard.json
-│   └── logs/
-│       ├── etl.log                   # Structured logs from ETL runs
-│       └── dead_letter/              # XML snippets that failed to parse
-├── etl/
-│   ├── __init__.py
-│   ├── config.py                     # File paths, thresholds, category rules
-│   ├── parse_xml.py                  # XML parsing using ElementTree/lxml
-│   ├── clean_normalize.py            # Amount, date, and phone normalization
-│   ├── categorize.py                 # Rule-based transaction classification
-│   ├── load_db.py                    # Table creation and upsert logic
-│   └── run.py                        # CLI: runs the full ETL pipeline
-├── api/                              # Optional bonus API layer
-│   ├── __init__.py
-│   ├── app.py                        # FastAPI app with /transactions, /analytics
-│   ├── db.py                         # MySQL connection helpers
-│   └── schemas.py                    # Pydantic response models
-├── scripts/
-│   ├── run_etl.sh                    # Runs the full ETL pipeline
-│   ├── export_json.sh                # Rebuilds dashboard.json
-│   └── serve_frontend.sh             # Starts a local HTTP server
-└── tests/
-    ├── test_parse_xml.py
-    ├── test_clean_normalize.py
-    └── test_categorize.py
+│   ├── raw/momo.xml             # Raw XML input (git-ignored)
+│   ├── processed/               # dashboard.json, transactions.json
+│   └── logs/                    # ETL logs & dead-letter XML snippets
+│
+├── etl/                         # parse_xml, clean_normalize, categorize, load_db, run
+│
+├── api/
+│   ├── app.py, db.py, schemas.py
+│   └── endpoints/
+│       ├── create.py            # POST /transactions
+│       └── update.py            # PUT /transactions/{id}
+│
+├── database/                    # SQL schema, indexes, validation, tests
+├── docs/                        # ERD, design rationale, screenshots, AI usage log
+├── examples/                    # JSON schemas + sample nested payloads
+├── scripts/                     # run_etl.sh, export_json.sh, serve_frontend.sh
+└── tests/                       # Pytest suite for the ETL stages
 ```
 
 ---
 
-## Setup & Installation
+## Setup
 
-Setup instructions will be updated as we build the project.
-
-### Prerequisites
-- Python 3.9+
-- pip
-
-### Steps
+**Prerequisites:** Python 3.9+, pip, MySQL 8.0+
 
 ```bash
-# 1. Clone the repository
+# 1. Clone
 git clone https://github.com/imz-beni/Croissant1.git
 cd Croissant1
 
-# 2. Set up environment variables
+# 2. Environment
 cp .env.example .env
-# Edit .env with your local values (e.g. MySQL connection settings)
+# edit .env with your MySQL connection settings
 
-# 3. Install Python dependencies
+# 3. Dependencies
 pip install -r requirements.txt
 
-# 4. Place your MoMo XML file
-cp /path/to/your/momo.xml data/raw/momo.xml
+# 4. Database
+mysql -u root -p < database/database_setup.sql
+mysql -u root -p momo_db < database/validation_rules.sql
 
-# 5. Run the ETL pipeline
+# 5. Drop in your XML export
+cp /path/to/momo.xml data/raw/momo.xml
+
+# 6. Run the ETL
 bash scripts/run_etl.sh
 
-# 6. Launch the frontend dashboard
-bash scripts/serve_frontend.sh
-# Then open http://localhost:8000 in your browser
+# 7. Serve the dashboard
+bash scripts/serve_frontend.sh   # http://localhost:8000
 ```
 
 ---
 
-##  Tech Stack
+## Database design(Week 2)
 
-| Layer | Technology |
-|-------|-----------|
-| XML Parsing | Python — `xml.etree.ElementTree` / `lxml` |
-| Data Cleaning | Python — `dateutil`, `re` |
-| Database | MySQL 8.x with InnoDB |
-| Backend API  | FastAPI + Pydantic |
-| Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Data Visualization | Chart.js  |
-| Project Management | GitHub Projects |
-
----
-
-##  Scrum Board
-
-https://github.com/users/Teta-Dianah/projects/1
-
----
-
-## Database Design (Week 2)
-
-The database layer uses **MySQL 8.x with InnoDB** engine. The schema is built around one central fact table (transactions) with four supporting tables, plus a junction table that resolves the many-to-many relationship between users and transactions.
-
-### Schema Overview
+MySQL 8.x / InnoDB. One central fact table (`transactions`) with four supporting tables, plus a junction table that resolves the many-to-many relationship between users and transactions.
 
 | Table | Role | Purpose |
 |-------|------|---------|
-| transaction_categories | Lookup | 8 distinct MoMo transaction types observed in the SMS data |
-| users | Core | Every person or organisation involved in a transaction |
-| system_logs | Core | Audit trail for the ETL pipeline |
-| transactions | Central fact | One row per MoMo SMS transaction parsed from the source XML |
-| transaction_participants | Junction | Resolves the Users ↔ Transactions many-to-many relationship |
-
-### ERD Diagram
+| `transaction_categories` | Lookup | 8 MoMo transaction types observed in the SMS data |
+| `users` | Core | Every person or organisation involved in a transaction |
+| `system_logs` | Core | Audit trail for the ETL pipeline |
+| `transactions` | Fact | One row per MoMo SMS transaction |
+| `transaction_participants` | Junction | Users ↔ Transactions many-to-many |
 
 ![ERD Diagram](docs/ERD_Diagram.png)
 
-### Database Setup
+### Design decisions
 
-Requires **MySQL 8.0+**. Run the two scripts in order:
+- **Money** is `DECIMAL(12,2)` — never floating point, to avoid rounding errors on totals.
+- **Transaction IDs** are `BIGINT` — real MoMo provider IDs (e.g. `76662021700`) exceed `INT` range.
+- **Phone numbers** are `VARCHAR(20)` — values can be masked (`*********013`) or carry a country prefix (`250791666666`).
+- **Small enumerations** use `ENUM` — invalid entries are rejected at the DB level.
+- **Surrogate keys** on every table for stable row identification.
+- **Foreign keys** use explicit ON DELETE rules: `RESTRICT` for lookups, `CASCADE` for the junction, `SET NULL` for logs.
 
-```bash
-# 1. Create the database, all tables, indexes, and seed data
-mysql -u root -p < database/database_setup.sql
+### SQL files
 
-# 2. Apply additional CHECK constraints
-mysql -u root -p momo_db < database/validation_rules.sql
-```
-
-### Repository Structure (Week 2 additions)
-
-```
-├── database/
-│   ├── database_setup.sql        # Full schema — run this to set up the database
-│   ├── categories.sql            # Transaction_Categories table
-│   ├── users.sql                 # Users table
-│   ├── system_logs.sql           # System_Logs table
-│   ├── transactions.sql          # Transactions table (central fact)
-│   ├── junction_table.sql        # Transaction_Participants junction table
-│   ├── indexes.sql               # Performance indexes across the schema
-│   └── validation_rules.sql      # CHECK constraints for data integrity
-├── docs/
-│   ├── ERD_Diagram.drawio        # Editable ERD source file
-│   ├── ERD_Diagram.png           # Exported ERD image
-│   ├── design_rationale.md       # Schema design justification
-│   └── demo_queries_*.sql        # Per-member demonstration queries
-└── examples/
-    ├── categories_schema.json    # JSON schema for Transaction_Categories
-    ├── users_schema.json         # JSON schema for Users
-    ├── system_logs_schema.json   # JSON schema for System_Logs
-    ├── transactions_schema.json  # JSON schema for Transactions
-    ├── junction_schema.json      # JSON schema for Transaction_Participants
-    └── complex_transaction.json  # Full nested transaction API response
-```
-
-### Design Decisions
-
-- Money values use `DECIMAL(12,2)` — never floating point, to avoid rounding errors on totals
-- Transaction IDs use `BIGINT` — real MoMo provider IDs (e.g. 76662021700) exceed the range of INT
-- Phone numbers are stored as `VARCHAR(20)` — values can be masked (`*********013`) or carry a country prefix (`250791666666`)
-- Small fixed value sets use `ENUM` — invalid entries are rejected at the database level
-- Every table has a single-column surrogate primary key for stable row identification
-- Foreign keys use explicit ON DELETE rules: RESTRICT for lookups, CASCADE for the junction, SET NULL for logs
-
-### Week 2 Contributions
-
-| Member | Contribution |
-|--------|--------------|
-| Nshuti Lancelot | Schema design, Transactions table, junction table, design rationale |
-| Imanzi Beni | Users table, indexes, database_setup.sql integration |
-| Ishimwe Axcel | Transaction_Categories table, ERD diagram, demo queries |
-| Teta Dianah | System_Logs table, CHECK constraints, AI usage log |
-| Rugwiro Derrick | Complex nested JSON, integration tests, final PDF assembly |
+| File | Contents |
+|------|----------|
+| `database/database_setup.sql` | Full schema — run first |
+| `database/validation_rules.sql` | Additional `CHECK` constraints |
+| `database/indexes.sql` | Performance indexes |
+| `database/integration_tests.sql` | End-to-end insert/select/update/delete |
+| `database/mapping_queries.sql` | `JSON_OBJECT` queries assembling nested payloads |
 
 ---
+
+## REST API(Week 3)
+
+CRUD handlers in [`api/endpoints/`](api/endpoints), backed by `data/processed/transactions.json`.
+
+| Method | Path | Handler | Success | Errors |
+|--------|------|---------|---------|--------|
+| POST | `/transactions` | [create.py](api/endpoints/create.py) | `201` | `400` missing field |
+| PUT | `/transactions/{id}` | [update.py](api/endpoints/update.py) | `200` / `404` | `404` not found |
+
+- **POST** requires `transaction_type`, `amount`, `timestamp`; `currency` defaults to `RWF`. Returns the created record with a new auto-incremented `id`.
+- **PUT** merges the request body into the matching record by `id`.
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|-------|-----------|
+| XML parsing | Python — `xml.etree.ElementTree` / `lxml` |
+| Data cleaning | Python — `dateutil`, `re` |
+| Database | MySQL 8.x (InnoDB) |
+| Backend API | FastAPI + Pydantic |
+| Frontend | HTML5, CSS3, Vanilla JS |
+| Visualization | Chart.js |
+| Project management | GitHub Projects |
+
+---
+
+## Additional documentation
+
+| Path | Purpose |
+|------|---------|
+| [docs/design_rationale.md](docs/design_rationale.md) | Schema design justification |
+| [docs/sql_to_json_mapping.md](docs/sql_to_json_mapping.md) | Column → JSON key mapping |
+| [docs/research_standards.md](docs/research_standards.md) | Team analysis & documentation conventions |
+| [docs/ai_usage_log.md](docs/ai_usage_log.md) | Log of AI assistance |
+| [docs/tasks.md](docs/tasks.md) | Week-by-week task breakdown |
+| [docs/screenshots/](docs/screenshots) | CRUD, constraint, and demo-query screenshots |
+| [docs/Team_Croissant_Database_Design_Document (1).pdf](<docs/Team_Croissant_Database_Design_Document (1).pdf>) | Final Week 2 design document |
+| [examples/json_schemas.json](examples/json_schemas.json) | Consolidated JSON schema bundle |
+| [examples/complex_transaction.json](examples/complex_transaction.json) | Full nested transaction API response |
+
+---
+
+## How To Run it
+
+uvicorn api.app:app --reload --port 8000
+Docs: http://localhost:8000/docs
+OpenAPI: http://localhost:8000/openapi.json
+
+## Example
+
+curl -X POST http://localhost:8000/transactions \
+  -H "Content-Type: application/json" \
+  -d '{"transaction_type":"INCOMING_MONEY","amount":5000,"timestamp":"2024-05-12T09:30:00"}'
+
+curl -X PUT http://localhost:8000/transactions/1 \
+  -H "Content-Type: application/json" \
+  -d '{"amount":7500,"fee":50}'
